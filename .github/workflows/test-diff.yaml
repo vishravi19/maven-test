@@ -8,12 +8,15 @@ jobs:
   test-diff:
 
     runs-on: ubuntu-latest
-
+    env:
+      PROJECTS: "vais-salesforce-cloud-connector,vais-onedrive-cloud-connector"
     steps:
     - uses: actions/checkout@v3
     - id: files
       uses: jitterbit/get-changed-files@v1
     - run: |
-        for changed_file in ${{ steps.files.outputs.all }}; do
-          echo "Do something with this ${changed_file}."
+        echo "List of changed file: ${{ steps.files.outputs.all }}"
+        STRING_LIST=(${PROJECTS//,/ })
+        for value in "${STRING_LIST[@]}"; do
+          echo "Value: $value"
         done
