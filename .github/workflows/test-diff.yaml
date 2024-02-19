@@ -1,0 +1,15 @@
+name: test-diff
+
+on:
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  test-diff:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Test with Maven
+      run: git diff --name-only ${{ github.event.before }} ${{ github.sha }}
