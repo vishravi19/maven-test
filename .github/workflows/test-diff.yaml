@@ -15,8 +15,14 @@ jobs:
     - id: files
       uses: jitterbit/get-changed-files@v1
     - run: |
+        COUNT=0
         echo "List of changed file: ${{ steps.files.outputs.all }}"
         STRING_LIST=(${PROJECTS//,/ })
         for value in "${STRING_LIST[@]}"; do
           echo "Value: $value"
+          if grep -q "$value" "${{ steps.files.outputs.all }}"; then
+            echo "Project $value changed"
+          fi
         done
+        
+
