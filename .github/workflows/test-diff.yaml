@@ -20,8 +20,10 @@ jobs:
         STRING_LIST=(${PROJECTS//,/ })
         for value in "${STRING_LIST[@]}"; do
           echo "Value: $value"
-          if grep -q "$value" "${{ steps.files.outputs.all }}"; then
-            echo "Project $value changed"
+          if echo ${{ steps.files.outputs.all }} | grep -q -w "$value" ; then
+              echo "Send request for $value"
+          else
+              echo "Do not send request for $value"
           fi
         done
         
