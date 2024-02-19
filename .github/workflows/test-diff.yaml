@@ -9,7 +9,7 @@ jobs:
 
     runs-on: ubuntu-latest
     env:
-      PROJECTS: "vais-salesforce-cloud-connector,vais-onedrive-cloud-connector"
+      PROJECTS: "vais-box-cloud-connector,vais-confluence-cloud-connector,vais-dropbox-cloud-connector,vais-internal-website-connector,vais-jira-cloud-connector,vais-onedrive-cloud-connector,vais-salesforce-cloud-connector,vais-servicenow-cloud-connector,vais-sharepoint-cloud-connector,vais-slack-cloud-connector"
     steps:
     - uses: actions/checkout@v3
     - id: files
@@ -19,7 +19,6 @@ jobs:
         echo "List of changed file: ${{ steps.files.outputs.all }}"
         STRING_LIST=(${PROJECTS//,/ })
         for value in "${STRING_LIST[@]}"; do
-          echo "Value: $value"
           if echo ${{ steps.files.outputs.all }} | grep -q -w "$value" ; then
               echo "Send request for $value"
           else
