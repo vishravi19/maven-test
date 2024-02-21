@@ -1,0 +1,46 @@
+steps:
+- name: 'gcr.io/cloud-builders/git'
+  # args: ['clone', 'https://$$GITHUB_PAT@github.com/Strategic-Accounts-PSL/Google_Vertex_AI', '--branch', '$BRANCH_NAME', 'workspace']
+  secretEnv: ['GITHUB_PAT']
+  entrypoint: 'bash'
+  args:
+  - -c
+  - |
+   git clone https://$$GITHUB_PAT@github.com/Strategic-Accounts-PSL/Google_Vertex_AI --branch $BRANCH_NAME workspace
+- name: 'maven:3.8.3-openjdk-17-slim'
+  entrypoint: 'mvn'
+  args:
+    - 'clean'
+    - 'install'
+    - '-pl'
+    - '$_P_VAR' 
+    - '-am'
+    - '-Dmaven.test.skip=true'
+    - '-Dcheckstyle.skip=true'
+- name: 'maven:3.8.3-openjdk-17-slim'
+  entrypoint: 'bash'
+  args:
+    #- 'clean'
+    #- 'clean install -pl vais-confluence-cloud-connector -am  -Dmaven.test.skip=true'
+    - '-c'
+    - |
+      mvn clean -pl $_P_VAR -am -Dmaven.test.skip=true -Dcheckstyle.skip verify sonar:sonar -Dsonar.host.url=http://35.232.31.132:9000 -Dsonar.login=$$Sonar_PAT -Dsonar.projectKey=$_P_VAR -Dsonar.projectName=$_P_VAR
+    #- '-Dsonar.exclusions=**/*.html,**/*.json,**/*.css,**/*.md,**/*.xml,**/*.yaml,**/*.yml,**/*.java,**/*.properties'
+    #- '-Dsonar.java.binaries=**/src/**'
+  secretEnv: ['Sonar_PAT']
+- name: 'gcr.io/cloud-builders/docker'
+  script: |
+    date_var=$(date +%F_%H%M%S)
+    sed -i 's/sample/'$_P_VAR'/g' Dockerfile
+    docker build -t us-central1-docker.pkg.dev/$PROJECT_ID/vais/$_P_VAR:$date_var ./$_P_VAR
+    docker tag us-central1-docker.pkg.dev/$PROJECT_ID/vais/$_P_VAR:$date_var us-central1-docker.pkg.dev/$PROJECT_ID/vais/$_P_VAR:$COMMIT_SHA
+    docker push us-central1-docker.pkg.dev/$PROJECT_ID/vais/$_P_VAR:$COMMIT_SHA
+    docker push us-central1-docker.pkg.dev/$PROJECT_ID/vais/$_P_VAR:$date_var
+  automapSubstitutions: true
+
+availableSecrets:
+  secretManager:
+  - versionName: 'projects/249801736219/secrets/github-pat/versions/1'
+    env: 'GITHUB_PAT'
+  - versionName: 'projects/249801736219/secrets/Sonar_PAT/versions/1'
+    env: 'Sonar_PAT'
