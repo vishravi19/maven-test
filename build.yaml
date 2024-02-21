@@ -24,7 +24,7 @@ steps:
     #- 'clean install -pl vais-confluence-cloud-connector -am  -Dmaven.test.skip=true'
     - '-c'
     - |
-      mvn clean -pl $_P_VAR -am -Dmaven.test.skip=true -Dcheckstyle.skip verify sonar:sonar -Dsonar.host.url=http://35.232.31.132:9000 -Dsonar.login=$$Sonar_PAT -Dsonar.projectKey=$_P_VAR -Dsonar.projectName=$_P_VAR
+      mvn clean -pl $_P_VAR -am -Dmaven.test.skip=true -Dcheckstyle.skip verify sonar:sonar -Dsonar.host.url=http://35.232.31.132:9000 -Dsonar.login=$$Sonar_PAT -Dsonar.projectKey=$_P_VAR-$BRANCH_NAME -Dsonar.projectName=$_P_VAR-$BRANCH_NAME
     #- '-Dsonar.exclusions=**/*.html,**/*.json,**/*.css,**/*.md,**/*.xml,**/*.yaml,**/*.yml,**/*.java,**/*.properties'
     #- '-Dsonar.java.binaries=**/src/**'
   secretEnv: ['Sonar_PAT']
