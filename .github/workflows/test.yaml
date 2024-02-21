@@ -1,0 +1,15 @@
+name: SonarQube Code Coverage Check
+
+on:
+  pull_request:
+    branches:
+      - "*"
+
+jobs:
+  sonarqube-check-confluence:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        run: |
+          echo ${{ github.ref_name }}
