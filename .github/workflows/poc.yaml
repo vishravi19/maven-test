@@ -11,5 +11,5 @@ jobs:
         uses: actions/checkout@v2
       - name: Update CODEOWNERS
         run: |
-          git fetch origin codeowners-poc
-          git checkout codeowners-poc
+          git fetch origin master
+          git checkout master
