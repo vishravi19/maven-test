@@ -20,3 +20,5 @@ jobs:
           echo "* @ruihuang_psl @zjun_psl @gunagya_psl @abhishekkmr_psl @yogendra-rajput_psl @ravi-vishwakarma1_psl @swapnilag_psl @swapnil-paranjpe_psl @venkata-bathalapalli_psl" > CODEOWNERS
           git commit -am "GitHub Actions Worflow updated CODEOWNERS"
           git push
+        env:
+          GITHUB_TOKE: ${{ secrets.GHA_PAT }}
