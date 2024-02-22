@@ -15,17 +15,15 @@ jobs:
             git config --global user.name "GitHub Actions"
         env:
           GITHUB_TOKE: ${{ secrets.GHA_PAT }}
-      - name: Debug
-        run: |
-          echo "GitHub Token: $GITHUB_TOKEN"
-          git config --global --get-regexp 'url.*.insteadof'
-          git remote -v
       - name: Update CODEOWNERS
         run: |
           git fetch origin master
           git checkout master
           echo "* @ruihuang_psl @zjun_psl @gunagya_psl @abhishekkmr_psl @yogendra-rajput_psl @ravi-vishwakarma1_psl @swapnilag_psl @swapnil-paranjpe_psl @venkata-bathalapalli_psl" > CODEOWNERS
           git commit -am "GitHub Actions Worflow updated CODEOWNERS"
-          git push
-        env:
-          GITHUB_TOKE: ${{ secrets.GHA_PAT }}
+      - name: Push to protected branch
+        uses: CasperWA/push-protected@v2
+        with:
+          token: ${{ secrets.GHA_PAT }}
+          branch: master
+          unprotect_reviews: true
