@@ -1,0 +1,15 @@
+name: Update CODEOWNERS
+on:
+  pull_request:
+    types:
+      - closed
+jobs:
+  update-codeowners:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      - name: Update CODEOWNERS
+        run: |
+          git fetch origin codeowners-poc
+          git checkout codeowners-poc
