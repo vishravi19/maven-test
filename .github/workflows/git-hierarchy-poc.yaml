@@ -1,0 +1,28 @@
+name: Enforce Target Branch
+ 
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+ 
+jobs:
+  enforce-target-branch:
+    runs-on: ubuntu-latest
+ 
+    steps:
+      - name: Check Target Branch
+        run: |
+          # Extract target branch from the pull request
+          target_branch=$(echo ${{ github.event.pull_request.base.ref }} | sed 's/refs\/heads\///')
+ 
+          # Specify the allowed target branches
+          allowed_branches=("main" "develop")
+ 
+          # Check if the target branch is allowed
+          if [[ " ${allowed_branches[@]} " =~ " ${target_branch} " ]]; then
+            echo "Target branch is allowed."
+          else
+            echo "Error: Invalid target branch. PRs can only be merged into ${allowed_branches[@]}."
+            exit 1
+          fi
