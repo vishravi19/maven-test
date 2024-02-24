@@ -13,18 +13,14 @@ jobs:
     steps:
       - name: Check Target Branch
         run: |
-          # Extract target branch from the pull request
-          #target_branch=$(echo ${{ github.event.pull_request.base.ref }} | sed 's/refs\/heads\///')
-          echo ${{ github.base_ref }}
-          echo ${{ github.head_ref }}
-
-          # # Specify the allowed target branches
-          # allowed_branches=("main" "develop")
- 
-          # # Check if the target branch is allowed
-          # if [[ " ${allowed_branches[@]} " =~ " ${target_branch} " ]]; then
-          #   echo "Target branch is allowed."
-          # else
-          #   echo "Error: Invalid target branch. PRs can only be merged from ${allowed_branches[@]}."
-          #   exit 1
-          # fi
+          echo "Merging from: ${{ github.base_ref }}"
+          echo "Target branch: ${{ github.head_ref }}""
+          # Specify the allowed base branches
+          allowed_branches=("jira-main")
+          # Check if the base branch is allowed
+          if [[ " ${allowed_branches[@]} " =~ " ${{ github.base_ref }} " ]]; then
+            echo "Base branch is allowed."
+          else
+            echo "Error: Invalid base branch. PRs can only be merged from ${allowed_branches[@]}."
+            exit 1
+          fi
