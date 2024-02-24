@@ -14,7 +14,7 @@ jobs:
       - name: Check Target Branch
         run: |
           echo "Merging from: ${{ github.base_ref }}"
-          echo "Target branch: ${{ github.head_ref }}""
+          echo "Target branch: ${{ github.head_ref }}"
           # Specify the allowed base branches
           allowed_branches=("jira-main")
           # Check if the base branch is allowed
