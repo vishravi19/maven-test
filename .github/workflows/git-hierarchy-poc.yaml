@@ -23,6 +23,6 @@ jobs:
           if [[ " ${allowed_branches[@]} " =~ " ${target_branch} " ]]; then
             echo "Target branch is allowed."
           else
-            echo "Error: Invalid target branch. PRs can only be merged into ${allowed_branches[@]}."
+            echo "Error: Invalid target branch. PRs can only be merged from ${allowed_branches[@]}."
             exit 1
           fi
