@@ -16,9 +16,9 @@ jobs:
           echo "Merging from: ${{ github.base_ref }}"
           echo "Target branch: ${{ github.head_ref }}"
           # Specify the allowed base branches
-          allowed_branches=("jira-main")
+          allowed_branches=("jira-main1")
           # Check if the base branch is allowed
-          if [[ " ${allowed_branches[@]} " =~ " ${{ github.base_ref }} " ]]; then
+          if [[ " ${allowed_branches[@]} " =~ " ${{ github.head_ref }} " ]]; then
             echo "Base branch is allowed."
           else
             echo "Error: Invalid base branch. PRs can only be merged from ${allowed_branches[@]}."
