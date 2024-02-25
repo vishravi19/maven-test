@@ -24,10 +24,10 @@ jobs:
           git fetch origin ${{ github.base_ref }}
           git checkout ${{ github.base_ref }}
           if [[ ${{ github.base_ref }} == $connector_main ]]; then
-              echo "* @ruihuang_psl @zjun_psl @gunagya_psl @abhishekkmr_psl @yogendra-rajput_psl @ravi-vishwakarma1_psl @swapnilag_psl @swapnil-paranjpe_psl @venkata-bathalapalli_psl" > CODEOWNERS
+              echo "* @chetan-gangurde_psl @parikshit-pandhare_psl @omkar-bodhane_psl @sravanakumar-d_psl @dhiraj-chaudhari_psl @leena-herwadkar_psl @utkarsha-mahajan_psl @swapnil-patil9_psl @Sagar-Lonkar_psl @lakma-mahendar_psl @ankur-mathur_psl @pankaj-kaushal_psl @arun-murugan_psl @ajith-kannath_psl @rakesh-agarwal1_psl" > CODEOWNERS
               git commit -am "GitHub Actions Worflow updated CODEOWNERS" & true
           elif [[ ${{ github.base_ref }} == $internal_rel ]]; then
-              echo "* @ruihuang_psl @zjun_psl @gunagya_psl @abhishekkmr_psl @yogendra-rajput_psl @ravi-vishwakarma1_psl @swapnilag_psl @swapnil-paranjpe_psl @venkata-bathalapalli_psl" > CODEOWNERS
+              echo "* @ankur-mathur_psl @pankaj-kaushal_psl @arun-murugan_psl @ajith-kannath_psl @rakesh-agarwal1_psl @swapnil-paranjpe_psl" > CODEOWNERS
               git commit -am "GitHub Actions Worflow updated CODEOWNERS" & true
           elif [[ ${{ github.base_ref }} == $google_rel ]]; then
               echo "* @ruihuang_psl @zjun_psl @gunagya_psl @abhishekkmr_psl @yogendra-rajput_psl @ravi-vishwakarma1_psl @swapnilag_psl @swapnil-paranjpe_psl @venkata-bathalapalli_psl" > CODEOWNERS
