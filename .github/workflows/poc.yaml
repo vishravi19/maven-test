@@ -15,7 +15,8 @@ jobs:
             git config --global user.name "GitHub Actions"
         env:
           GITHUB_TOKE: ${{ secrets.GHA_PAT }}
-      - name: Update CODEOWNERS
+      - id: update_codeowners
+        name: Update CODEOWNERS
         run: |
           connector_main="jira-main"
           internal_rel="jira-rel-1.0"
@@ -32,11 +33,12 @@ jobs:
               echo "* @ruihuang_psl @zjun_psl @gunagya_psl @abhishekkmr_psl @yogendra-rajput_psl @ravi-vishwakarma1_psl @swapnilag_psl @swapnil-paranjpe_psl @venkata-bathalapalli_psl" > CODEOWNERS
               git commit -am "GitHub Actions Worflow updated CODEOWNERS" & true
           else
-              echo "No action required, exiting!"
-              exit 0
+              echo "No action required, exiting!""
+              exit 1
           fi
       - name: Push to protected branch
         uses: CasperWA/push-protected@v2
+        if: steps.update_codeowners.conclusion == 'success'
         with:
           token: ${{ secrets.GHA_PAT }}
           branch: ${{ github.base_ref }}
