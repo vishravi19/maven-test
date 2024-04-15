@@ -44,3 +44,5 @@ availableSecrets:
     env: 'GITHUB_PAT'
   - versionName: 'projects/249801736219/secrets/Sonar_PAT/versions/1'
     env: 'Sonar_PAT'
+
+
