@@ -1,15 +1,19 @@
-name: SonarQube Code Coverage Check
-
+name: Check Secret Restrictions
 on:
   pull_request:
     branches:
       - "*"
+  workflow_dispatch:
 
 jobs:
-  sonarqube-check-confluence:
+  check-env-secret:
     runs-on: ubuntu-latest
+    environment: test
 
     steps:
       - name: Checkout Repository
         run: |
           echo ${{ github.head_ref }}
+      - name: Display secret
+        run: |
+          echo ${{ secret.MY_TEST_SECRET }}
