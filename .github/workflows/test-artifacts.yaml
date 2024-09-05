@@ -12,7 +12,7 @@ jobs:
       - name: Step 2 - Create a file
         run: echo $MY_ENV_VAR > my_file.txt
       - name: Uplaod file
-        uses: actions/upload-artifacts@v2
+        uses: actions/upload-artifact@v2
         with:
           name: my-file
           path: my_file.txt
@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Download artifacts
-        uses: actions/download-artifacts@v2
+        uses: actions/download-artifact@v2
         with:
           name: my-file
       - name: Display contents
