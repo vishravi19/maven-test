@@ -1,0 +1,28 @@
+name: Test Upload and Download artifacts
+on:
+    push:
+      branches: [master, "release/*"]
+    workflow_dispatch:
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Step 1
+        run: echo "MY_ENV_VAR=My Value" >> $GITHUB_ENV
+      - name: Step 2 - Create a file
+        run: echo $MY_ENV_VAR > my_file.txt
+      - name: Uplaod file
+        uses: actions/upload-artifacts@v2
+        with:
+          name: my-file
+          path: my_file.txt
+  download:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifacts@v2
+        with:
+          name: my-file
+      - name: Display contents
+        run: cat my_file.txt
+  
