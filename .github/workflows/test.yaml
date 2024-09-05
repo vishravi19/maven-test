@@ -16,4 +16,4 @@ jobs:
           echo ${{ github.head_ref }}
       - name: Display secret
         run: |
-          echo ${{ secret.MY_TEST_SECRET }}
+          echo ${{ secrets.MY_TEST_SECRET }}
