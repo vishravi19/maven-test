@@ -11,7 +11,7 @@ jobs:
         id: step1
         run: echo "VALUE_FROM_STEP1=value1" >> $GITHUB_OUTPUT
       - name: Display value from step 1
-        run: "VAlues from step1: $VALUE_FROM_STEP1"
+        run: echo "Values from step1 $VALUE_FROM_STEP1"
   job2:
     runs-on: ubuntu-latest
     needs: job1
